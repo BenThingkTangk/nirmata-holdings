@@ -107,6 +107,43 @@ test("portfolio world updates when a venture is selected", async ({ page }) => {
   await expect(page.getByTestId("world-physiops")).toContainText(/signal/i);
 });
 
+function overlaps(
+  a: { x: number; y: number; width: number; height: number },
+  b: { x: number; y: number; width: number; height: number }
+) {
+  return (
+    a.x < b.x + b.width &&
+    a.x + a.width > b.x &&
+    a.y < b.y + b.height &&
+    a.y + a.height > b.y
+  );
+}
+
+test("sound control does not obstruct mobile content; desktop non-overlapping", async ({ page }) => {
+  await enter(page);
+  const toggle = page.getByTestId("sound-toggle");
+  const vw = page.viewportSize()?.width ?? 1440;
+
+  // Bring the Worker Simulation primary controls into view.
+  const sim = page.getByTestId("worker-sim");
+  await sim.scrollIntoViewIfNeeded();
+  const control = page.getByTestId("objective-support");
+  await expect(control).toBeVisible();
+
+  if (vw <= 640) {
+    // Mobile: no persistent fixed control may sit over the page.
+    await expect(toggle).toBeHidden();
+  } else {
+    // Desktop may retain the fixed control, but it must not cover controls.
+    await expect(toggle).toBeVisible();
+    const tb = await toggle.boundingBox();
+    const cb = await control.boundingBox();
+    expect(tb, "sound toggle box").not.toBeNull();
+    expect(cb, "control box").not.toBeNull();
+    expect(overlaps(tb!, cb!), "sound toggle overlaps sim control").toBe(false);
+  }
+});
+
 test("no horizontal overflow", async ({ page }) => {
   await enter(page);
   await noHorizontalOverflow(page);

@@ -845,6 +845,15 @@ a {
   color: var(--text);
   border-color: var(--primary);
 }
+/* The optional ambient-sound control is a desktop-only affordance. On mobile a
+   persistent fixed pill overlaps scrolling content (e.g. the Worker Simulation
+   controls), so it is removed at small widths rather than duplicated into the
+   nav — the audio is cosmetic and integration would add fragility. */
+@media (max-width: 640px) {
+  .sound-toggle {
+    display: none;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .wm-lattice line,
