@@ -1,127 +1,146 @@
 "use client";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { StarField } from "./StarField";
+import { OrbitalCanvas } from "./OrbitalCanvas";
+
+const STATS = [
+  { n: "9", l: "Ventures" },
+  { n: "4", l: "Live today" },
+  { n: "6", l: "Human domains" },
+  { n: "1", l: "Ethical covenant" },
+];
 
 export function Hero() {
+  const artRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const el = artRef.current;
+    if (!el) return;
+    const mq = window.matchMedia("(hover: hover)");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!mq.matches || reduce) return;
+    const onMove = (e: MouseEvent) => {
+      const dx = (e.clientX / window.innerWidth - 0.5) * 16;
+      const dy = (e.clientY / window.innerHeight - 0.5) * 16;
+      el.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, []);
+
   return (
     <section
       id="top"
-      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden"
+      className="relative flex min-h-[100svh] items-center overflow-hidden pt-20"
+      data-testid="hero"
     >
-      {/* Background layers */}
-      <div className="absolute inset-0 ambient-teal" aria-hidden="true" />
-      <div className="absolute inset-0 ambient-violet opacity-60" aria-hidden="true" />
-      <StarField />
-
-      {/* Orbital rings */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <div className="orbit" style={{ width: "min(140vh, 1400px)", height: "min(140vh, 1400px)" }} />
-        <div className="orbit orbit-2" style={{ width: "min(100vh, 1000px)", height: "min(100vh, 1000px)" }} />
-        <div className="orbit" style={{ width: "min(64vh, 640px)", height: "min(64vh, 640px)", opacity: 0.5 }} />
+      <div className="absolute inset-0 glow-teal" aria-hidden />
+      <div className="absolute inset-0 glow-iris opacity-70" aria-hidden />
+      <OrbitalCanvas className="absolute inset-0 h-full w-full opacity-70" />
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center" aria-hidden>
+        <div className="orbit-ring" style={{ width: "min(128vh,1200px)", height: "min(128vh,1200px)" }} />
+        <div className="orbit-ring orbit-ring--iris" style={{ width: "min(88vh,860px)", height: "min(88vh,860px)" }} />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-10 text-center pt-24 pb-16">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
-          className="inline-flex mb-8"
-        >
-          <span className="chip">
-            <span className="chip-dot" />
-            The maker&apos;s holding company
-          </span>
-        </motion.div>
+      <div className="container container-wide relative z-10 grid items-center gap-12 py-16 lg:grid-cols-[1.1fr_0.9fr]">
+        <div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <span className="eyebrow eyebrow--teal">
+              <span className="dot dot--pulse" /> Ethics-first innovation house · est. 2024
+            </span>
+          </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.1, delay: 0.15, ease: "easeOut" }}
-          className="font-display font-semibold text-white leading-[0.95] tracking-tight"
-          style={{ fontSize: "clamp(2.8rem, 8vw, 7rem)" }}
-        >
-          Nirmata{" "}
-          <span
+          <motion.h1
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-7 font-display text-ink-text"
             style={{
-              background:
-                "linear-gradient(135deg, #00e6d3 0%, #b987ff 100%)",
-              WebkitBackgroundClip: "text",
-              backgroundClip: "text",
-              color: "transparent",
+              fontSize: "clamp(2.4rem, 1rem + 5.4vw, 5.2rem)",
+              lineHeight: 0.98,
+              letterSpacing: "-0.04em",
             }}
           >
-            Holdings
-          </span>
-        </motion.h1>
+            A holding company for ideas{" "}
+            <span className="grad-tealiris">too important</span> to stay theoretical.
+          </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.0, delay: 0.35, ease: "easeOut" }}
-          className="mt-8 max-w-3xl mx-auto text-lg md:text-xl text-white/75 leading-relaxed"
-        >
-          A parent company for category-defining ventures. We build
-          the systems, and the systems that build systems &mdash; on{" "}
-          <span className="text-teal-500">ΔTOM</span>, powered by ATOM
-          workers, aligned to a single mission:{" "}
-          <span className="text-white">the betterment of humankind</span>.
-        </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="lead mt-7"
+          >
+            Nirmata &mdash; Sanskrit for <em className="not-italic text-ink-text">maker</em> &mdash;
+            is a growing portfolio of category-defining ventures across revenue, security, health,
+            agriculture and learning. One shared substrate. One covenant. Built for the betterment
+            of humankind, and judged by what ships.
+          </motion.p>
 
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.34 }}
+            className="mt-9 flex flex-wrap items-center gap-3"
+          >
+            <a href="#portfolio" className="btn btn--primary" data-testid="hero-cta-portfolio">
+              Explore the portfolio
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                <path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+            <a href="#manifesto" className="btn btn--ghost">
+              Why we exist
+            </a>
+          </motion.div>
+
+          <motion.dl
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.5 }}
+            className="mt-12 grid max-w-xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] sm:grid-cols-4"
+          >
+            {STATS.map((s) => (
+              <div key={s.l} className="bg-bg/40 px-4 py-5 text-center">
+                <dd className="font-display text-3xl text-ink-text">{s.n}</dd>
+                <dt className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">
+                  {s.l}
+                </dt>
+              </div>
+            ))}
+          </motion.dl>
+        </div>
+
+        {/* Masterbrand art */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.55 }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-4"
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          className="relative mx-auto hidden aspect-square w-full max-w-md items-center justify-center lg:flex"
         >
-          <a href="#portfolio" className="cta-primary">
-            Meet the Portfolio
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path
-                d="M3 8h10m-4-4l4 4-4 4"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </a>
-          <a href="#atom" className="cta-ghost">
-            What is ΔTOM?
-          </a>
-        </motion.div>
-
-        {/* Metric strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.0, delay: 0.85 }}
-          className="mt-16 glass px-6 md:px-10 py-6 md:py-8 max-w-4xl mx-auto"
-        >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-y-6 divide-x divide-white/[0.06]">
-            <Stat n="6" l="Flagship Ventures" />
-            <Stat n="9+" l="Products Shipped" />
-            <Stat n="99+" l="Enterprise Projects" />
-            <Stat n="1" l="Ethical AI Covenant" />
+          <div ref={artRef} className="relative transition-transform duration-300 ease-out">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/nirmata-mark.png"
+              alt="The Nirmata Holdings masterbrand: a sculptural winged-N of interwoven teal and violet light threaded with circuitry."
+              width={440}
+              height={460}
+              className="floaty relative z-10 h-auto w-[86%] mx-auto drop-shadow-[0_0_60px_rgba(0,240,223,0.25)]"
+              fetchPriority="high"
+            />
           </div>
         </motion.div>
+      </div>
 
-        <div className="mt-16 text-[10px] uppercase tracking-[0.35em] text-white/40 font-mono">
-          Scroll
-          <div className="mt-2 mx-auto w-px h-8 bg-gradient-to-b from-white/40 to-transparent" />
-        </div>
+      {/* Mobile mark */}
+      <div className="pointer-events-none absolute right-[-8%] top-[8%] w-52 opacity-30 blur-[1px] lg:hidden" aria-hidden>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/brand/nirmata-mark.png" alt="" width={208} height={218} className="h-auto w-full" />
       </div>
     </section>
-  );
-}
-
-function Stat({ n, l }: { n: string; l: string }) {
-  return (
-    <div className="px-4 first:pl-0 last:pr-0">
-      <div className="metric">{n}</div>
-      <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">
-        {l}
-      </div>
-    </div>
   );
 }

@@ -1,66 +1,51 @@
-"use client";
-import { motion } from "framer-motion";
-import { Logo } from "./Logo";
+import { Reveal } from "./Reveal";
+
+const ROUTES = [
+  { label: "Partner with a venture", note: "Enterprise & portfolio collaboration" },
+  { label: "Join the incubator", note: "Interdisciplinary builders & thinkers" },
+  { label: "Press & briefings", note: "Media and speaking requests" },
+];
 
 export function Contact() {
   return (
-    <section id="contact" className="relative pt-32 pb-16 overflow-hidden">
-      <div className="absolute inset-0 ambient-teal" aria-hidden />
-      <div className="relative max-w-5xl mx-auto px-6 lg:px-10 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.9 }}
-          className="font-display font-medium text-white leading-[1.02]"
-          style={{ fontSize: "clamp(2.4rem, 6vw, 5rem)" }}
-        >
-          Build with{" "}
-          <span
-            style={{
-              background: "linear-gradient(135deg,#00e6d3,#b987ff)",
-              WebkitBackgroundClip: "text",
-              backgroundClip: "text",
-              color: "transparent",
-            }}
-          >
-            Nirmata.
-          </span>
-        </motion.h2>
-        <p className="mt-6 text-white/70 text-lg max-w-2xl mx-auto">
-          Enterprise partnership, portfolio collaboration, philanthropic
-          coalition, or press &mdash; we read every note.
-        </p>
-
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <a href="mailto:ben.oleary@thingktangk.com" className="cta-primary">
-            ben.oleary@thingktangk.com
-          </a>
-          <a href="mailto:joel@nirmataholdings.com" className="cta-ghost">
-            joel@nirmataholdings.com
-          </a>
-        </div>
+    <section id="contact" className="section" data-testid="contact">
+      <div className="glow-teal absolute inset-0 opacity-60" aria-hidden />
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center" aria-hidden>
+        <div className="orbit-ring" style={{ width: "min(90vw,760px)", height: "min(90vw,760px)" }} />
       </div>
+      <div className="container relative text-center">
+        <Reveal className="mx-auto max-w-3xl">
+          <span className="eyebrow eyebrow--teal">
+            <span className="dot dot--pulse" /> Start a conversation
+          </span>
+          <h2 className="mt-7 font-display text-ink-text" style={{ fontSize: "clamp(2.2rem, 1rem + 4.4vw, 4.4rem)", lineHeight: 1.02, letterSpacing: "-0.04em" }}>
+            Build with <span className="grad-tealiris">Nirmata</span>.
+          </h2>
+          <p className="lead mx-auto mt-6">
+            Enterprise partnership, portfolio collaboration, incubator inquiry, or press &mdash; we
+            read every note. Tell us what you&apos;re trying to make true.
+          </p>
+        </Reveal>
 
-      <div className="mt-24 border-t border-white/[0.06] pt-10">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <Logo />
-          <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/40">
-            © {new Date().getFullYear()} Nirmata Holdings · The maker&apos;s
-            holding company
-          </div>
-          <div className="flex items-center gap-6 text-[13px] text-white/50">
-            <a href="#atom" className="hover:text-white transition-colors">
-              ΔTOM
-            </a>
-            <a href="#portfolio" className="hover:text-white transition-colors">
-              Portfolio
-            </a>
-            <a href="#covenant" className="hover:text-white transition-colors">
-              Covenant
-            </a>
-          </div>
-        </div>
+        <Reveal delay={100} className="mx-auto mt-10 grid max-w-3xl gap-3 sm:grid-cols-3">
+          {ROUTES.map((r) => (
+            <div key={r.label} className="card p-5 text-left">
+              <div className="font-display text-[15px] text-ink-text">{r.label}</div>
+              <div className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">
+                {r.note}
+              </div>
+            </div>
+          ))}
+        </Reveal>
+
+        <Reveal delay={160} className="mt-10 flex flex-wrap items-center justify-center gap-3">
+          <a href="mailto:hello@nirmataholdings.com" className="btn btn--primary" data-testid="contact-email">
+            hello@nirmataholdings.com
+          </a>
+          <a href="#portfolio" className="btn btn--ghost">
+            Explore the portfolio
+          </a>
+        </Reveal>
       </div>
     </section>
   );

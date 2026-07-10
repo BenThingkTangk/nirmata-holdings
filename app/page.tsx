@@ -1,25 +1,37 @@
 import { Nav } from "@/components/Nav";
+import { Boot } from "@/components/Boot";
 import { Hero } from "@/components/Hero";
-import { Philosophy } from "@/components/Philosophy";
-import { Atom } from "@/components/Atom";
-import { Marquee } from "@/components/Marquee";
+import { Manifesto } from "@/components/Manifesto";
+import { FailureModes } from "@/components/FailureModes";
 import { Portfolio } from "@/components/Portfolio";
+import { Marquee } from "@/components/Marquee";
+import { Substrate } from "@/components/Substrate";
+import { Atom } from "@/components/Atom";
+import { Incubator } from "@/components/Incubator";
 import { Covenant } from "@/components/Covenant";
 import { Founders } from "@/components/Founders";
 import { Contact } from "@/components/Contact";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="relative bg-ink-950 text-white overflow-hidden">
+    <>
+      <Boot />
       <Nav />
-      <Hero />
-      <Philosophy />
-      <Atom />
-      <Marquee />
-      <Portfolio />
-      <Covenant />
-      <Founders />
-      <Contact />
-    </main>
+      <main id="main" className="relative overflow-hidden">
+        <Hero />
+        <Manifesto />
+        <FailureModes />
+        <Portfolio />
+        <Marquee />
+        <Substrate />
+        <Atom />
+        <Incubator />
+        <Covenant />
+        <Founders />
+        <Contact />
+      </main>
+      <Footer />
+    </>
   );
 }
