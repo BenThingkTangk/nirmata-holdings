@@ -60,6 +60,25 @@ export const STATUS_LABEL: Record<Status, string> = {
   dev: "In development",
 };
 
+/** Visual "world" a venture opens into — a coherent environment + motion
+ * signature. `scene` selects a deterministic mini-scene renderer; `label` is
+ * always shown as an honesty tag ("concept simulation" / "illustrative"). */
+export type WorldScene =
+  | "lattice"
+  | "workflow"
+  | "signal"
+  | "compute"
+  | "shield"
+  | "soil"
+  | "story";
+
+export type World = {
+  scene: WorldScene;
+  environment: string;
+  motion: string;
+  label: string;
+};
+
 export type Venture = {
   id: string;
   name: string;
@@ -72,6 +91,7 @@ export type Venture = {
   problem: string;
   edge: string[];
   proof: string;
+  world: World;
 };
 
 export const VENTURES: Venture[] = [
@@ -93,6 +113,12 @@ export const VENTURES: Venture[] = [
     ],
     proof:
       "Operates as the strategy engine feeding architecture into the rest of the portfolio.",
+    world: {
+      scene: "lattice",
+      environment: "A quantum decision lattice — options held in superposition until a human collapses the choice.",
+      motion: "Nodes shimmer between states; a chosen path resolves and locks.",
+      label: "Concept simulation",
+    },
   },
   {
     id: "atom-console",
@@ -112,6 +138,12 @@ export const VENTURES: Venture[] = [
     ],
     proof:
       "In development. We publish claims when hardware ships — no benchmarks we can't stand behind.",
+    world: {
+      scene: "compute",
+      environment: "An interactive-compute universe — edge-served frames radiating from an AI-native core.",
+      motion: "Concentric compute rings pulse outward at human-speed cadence.",
+      label: "Concept simulation · in development",
+    },
   },
   {
     id: "atom-workers",
@@ -130,6 +162,12 @@ export const VENTURES: Venture[] = [
     ],
     proof:
       "Independent industry studies report revenue lifts and ROI well above traditional automation when agents are deployed with oversight.",
+    world: {
+      scene: "workflow",
+      environment: "An autonomous revenue workflow — signal enters, work is planned, a human approves, outcome ships.",
+      motion: "A task travels the Brain · Spine · Worker line and pauses at the human gate.",
+      label: "Illustrative workflow",
+    },
   },
   {
     id: "atom-salesos",
@@ -149,6 +187,12 @@ export const VENTURES: Venture[] = [
     ],
     proof:
       "Shipped as a working product microsite; held to strict TCPA / AI-compliance gating before scale.",
+    world: {
+      scene: "workflow",
+      environment: "A voice-first revenue floor — deals move from target to engage to close on one accountable loop.",
+      motion: "Waveform segments advance stage by stage under a compliance gate.",
+      label: "Illustrative workflow",
+    },
   },
   {
     id: "atom-red-team",
@@ -167,6 +211,12 @@ export const VENTURES: Venture[] = [
     ],
     proof:
       "Aligned to NIST's finalized post-quantum encryption standards. We build for a post-quantum threat model rather than promising unbreakable systems.",
+    world: {
+      scene: "shield",
+      environment: "A post-quantum defensive shield — a lattice barrier that anticipates and contains the attack.",
+      motion: "Probes strike the shield; the lattice absorbs and reforms.",
+      label: "Concept simulation",
+    },
   },
   {
     id: "evidenceos",
@@ -185,6 +235,12 @@ export const VENTURES: Venture[] = [
     ],
     proof:
       "Live as a working product for legal / telecom compliance — concrete, low-hype, built around a verifiable audit trail.",
+    world: {
+      scene: "shield",
+      environment: "A tamper-evident evidence chamber — every action hashed into an unbroken chain.",
+      motion: "Consent blocks link into a chain; a broken link flags red.",
+      label: "Illustrative",
+    },
   },
   {
     id: "physiops",
@@ -204,6 +260,12 @@ export const VENTURES: Venture[] = [
     ],
     proof:
       "Peer-reviewed research links ANS/HRV signals to earlier detection of physiological stress and cardiovascular risk. We say 'supports earlier insight' — never 'diagnoses' — while the science matures.",
+    world: {
+      scene: "signal",
+      environment: "A living autonomic-nervous-system signal field — parasympathetic and sympathetic tone breathing together.",
+      motion: "A dual HRV waveform pulses; anomalies surface as gentle flares.",
+      label: "Illustrative signal · supports insight, never diagnoses",
+    },
   },
   {
     id: "alc-bio",
@@ -222,6 +284,12 @@ export const VENTURES: Venture[] = [
     ],
     proof:
       "Peer-reviewed studies support feed-efficiency, digestibility and antibiotic-reduction benefits; we frame nutrient effects as biostimulant complements to fertilizer, not a replacement.",
+    world: {
+      scene: "soil",
+      environment: "A soil-regeneration microstructure — fulvic and humic networks threading nutrients into living ground.",
+      motion: "Root-like filaments extend and brighten as nutrients move.",
+      label: "Illustrative",
+    },
   },
   {
     id: "mousington",
@@ -240,5 +308,11 @@ export const VENTURES: Venture[] = [
     ],
     proof:
       "Live as a cozy underground adventure for ages 4–8 — courage, kindness, and the magic of stories.",
+    world: {
+      scene: "story",
+      environment: "A warm imagination world — a cozy underground where stories become places you can enter.",
+      motion: "Soft motes drift upward like lantern light in a burrow.",
+      label: "Illustrative",
+    },
   },
 ];

@@ -77,7 +77,10 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  /* clip (not hidden) so we still prevent horizontal overflow WITHOUT
+     promoting overflow-y to auto — which would create a scroll container
+     and break the Core Scroll Film's position: sticky. */
+  overflow-x: clip;
 }
 
 ::selection {
@@ -645,4 +648,217 @@ a {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--text-faint);
+}
+
+/* =========================================================================
+   Unbelievable Release — added systems
+   ========================================================================= */
+
+/* Screen-reader-only utility (visible content stays in DOM for SSR/crawlers) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Accent as a settable custom property — lets a "world" recolor a subtree
+   by writing --accent once. Defaults to the primary teal. */
+[data-accent] {
+  --accent: var(--primary);
+}
+[data-accent="teal"] {
+  --accent: #00f0df;
+  --accent-glow: rgba(0, 240, 223, 0.16);
+}
+[data-accent="iris"] {
+  --accent: #c084fc;
+  --accent-glow: rgba(192, 132, 252, 0.16);
+}
+[data-accent="coral"] {
+  --accent: #ff7b6b;
+  --accent-glow: rgba(255, 123, 107, 0.16);
+}
+[data-accent="gold"] {
+  --accent: #f5c842;
+  --accent-glow: rgba(245, 200, 66, 0.16);
+}
+[data-accent="azure"] {
+  --accent: #74c0fc;
+  --accent-glow: rgba(116, 192, 252, 0.16);
+}
+
+/* ---------- Core Scroll Film ---------- */
+.film-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.film-caption {
+  transition: opacity 500ms var(--ease), transform 500ms var(--ease);
+}
+
+/* ---------- Portfolio Worlds mini-scene ---------- */
+.world {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.world::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    120% 90% at 50% 0%,
+    color-mix(in srgb, var(--accent) 16%, transparent),
+    transparent 62%
+  );
+  opacity: 0.9;
+  transition: background 420ms var(--ease);
+}
+.world > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* world signature motions — one vocabulary per venture family */
+.wm-lattice line,
+.wm-lattice circle {
+  animation: wm-lattice 6s var(--ease) infinite;
+}
+@keyframes wm-lattice {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+.wm-flow path {
+  stroke-dasharray: 4 6;
+  animation: flow-move 1.6s linear infinite;
+}
+.wm-pulse {
+  transform-origin: center;
+  animation: wm-pulse 2.6s var(--ease) infinite;
+}
+@keyframes wm-pulse {
+  0%, 100% { transform: scale(0.92); opacity: 0.55; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+.wm-shield {
+  animation: wm-shield 3.4s var(--ease) infinite;
+}
+@keyframes wm-shield {
+  0%, 100% { opacity: 0.4; filter: none; }
+  50% { opacity: 1; filter: drop-shadow(0 0 6px var(--accent)); }
+}
+.wm-grow line {
+  animation: wm-grow 4s var(--ease) infinite;
+}
+@keyframes wm-grow {
+  0% { opacity: 0.2; }
+  50% { opacity: 0.9; }
+  100% { opacity: 0.2; }
+}
+.wm-drift {
+  animation: float-soft 8s var(--ease) infinite;
+}
+
+/* ---------- Simulation / Chamber shared ---------- */
+.step-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--surface-3);
+  transition: color var(--t), border-color var(--t), background var(--t);
+}
+.step-chip[data-state="done"] {
+  color: var(--primary);
+  border-color: rgba(0, 240, 223, 0.35);
+  background: rgba(0, 240, 223, 0.06);
+}
+.step-chip[data-state="active"] {
+  color: var(--text);
+  border-color: var(--border-bright);
+}
+.sim-line {
+  animation: sim-line 420ms var(--ease) both;
+}
+@keyframes sim-line {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.gate-lock {
+  color: var(--gold);
+}
+
+/* ---------- Founder manifesto ---------- */
+.manifesto-line {
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+
+/* ---------- Proof strip ---------- */
+.proof-figure {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+/* ---------- Sound toggle ---------- */
+.sound-toggle {
+  position: fixed;
+  right: clamp(0.9rem, 2vw, 1.5rem);
+  bottom: clamp(0.9rem, 2vw, 1.5rem);
+  z-index: 58;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 38px;
+  padding: 0 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-bright);
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color var(--t), border-color var(--t);
+}
+.sound-toggle:hover {
+  color: var(--text);
+  border-color: var(--primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wm-lattice line,
+  .wm-lattice circle,
+  .wm-flow path,
+  .wm-pulse,
+  .wm-shield,
+  .wm-grow line,
+  .wm-drift,
+  .sim-line {
+    animation: none !important;
+  }
+  .film-caption,
+  .manifesto-line {
+    transition: none !important;
+  }
 }

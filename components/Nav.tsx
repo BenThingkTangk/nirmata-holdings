@@ -6,8 +6,8 @@ const links = [
   { href: "#manifesto", label: "Why Nirmata" },
   { href: "#portfolio", label: "Portfolio" },
   { href: "#substrate", label: "NirmataOS" },
-  { href: "#atom", label: "ATOM" },
-  { href: "#covenant", label: "Covenant" },
+  { href: "#worker-sim", label: "Simulation" },
+  { href: "#chamber", label: "Ethics" },
   { href: "#founders", label: "Founders" },
 ];
 

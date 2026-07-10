@@ -1,9 +1,32 @@
 import { Reveal } from "./Reveal";
 
+/**
+ * Proof points are drawn only from claims already made — and constrained —
+ * elsewhere on the site. No invented logos, clients, testimonials or metrics.
+ */
+const PROOF = [
+  {
+    figure: "NIST",
+    label: "FIPS 203 / 204 / 205",
+    note: "ATOM Red Team builds to finalized post-quantum standards.",
+  },
+  {
+    figure: "Peer-reviewed",
+    label: "science, not slogans",
+    note: "PhysioPS and ALC Bio frame claims to the published literature.",
+  },
+  {
+    figure: "Live",
+    label: "shipping products",
+    note: "EvidenceOS, PhysioPS, ALC Bio and Mousington are in the world.",
+  },
+];
+
+// Voice-matched routes into the experience — one primary conversion preserved.
 const ROUTES = [
-  { label: "Partner with a venture", note: "Enterprise & portfolio collaboration" },
-  { label: "Join the incubator", note: "Interdisciplinary builders & thinkers" },
-  { label: "Press & briefings", note: "Media and speaking requests" },
+  { label: "Explore the system", note: "The Nirmata core, end to end", href: "#scroll-film" },
+  { label: "Run the simulation", note: "See a human-governed Worker run", href: "#worker-sim" },
+  { label: "Talk to a founder", note: "Architect & philosopher", href: "mailto:hello@nirmataholdings.com?subject=Talk%20to%20a%20founder" },
 ];
 
 export function Contact() {
@@ -27,17 +50,38 @@ export function Contact() {
           </p>
         </Reveal>
 
-        <Reveal delay={100} className="mx-auto mt-10 grid max-w-3xl gap-3 sm:grid-cols-3">
-          {ROUTES.map((r) => (
-            <div key={r.label} className="card p-5 text-left">
-              <div className="font-display text-[15px] text-ink-text">{r.label}</div>
-              <div className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">
-                {r.note}
+        {/* Proof strip — verifiable framing only */}
+        <Reveal delay={80} className="mx-auto mt-12 grid max-w-4xl gap-3 sm:grid-cols-3" >
+          <div className="sr-only">Proof points, drawn only from claims made elsewhere on this site.</div>
+          {PROOF.map((p) => (
+            <div key={p.figure} className="card p-5 text-left" data-testid="proof-item">
+              <div className="proof-figure text-2xl text-primary">{p.figure}</div>
+              <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-muted">
+                {p.label}
               </div>
+              <p className="mt-2 text-[13px] leading-snug text-ink-muted">{p.note}</p>
             </div>
           ))}
         </Reveal>
 
+        {/* Voice-matched routes */}
+        <Reveal delay={120} className="mx-auto mt-8 grid max-w-4xl gap-3 sm:grid-cols-3">
+          {ROUTES.map((r) => (
+            <a
+              key={r.label}
+              href={r.href}
+              className="card p-5 text-left transition-colors"
+              data-testid="conversion-route"
+            >
+              <div className="font-display text-[15px] text-ink-text">{r.label}</div>
+              <div className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">
+                {r.note}
+              </div>
+            </a>
+          ))}
+        </Reveal>
+
+        {/* Primary conversion */}
         <Reveal delay={160} className="mt-10 flex flex-wrap items-center justify-center gap-3">
           <a href="mailto:hello@nirmataholdings.com" className="btn btn--primary" data-testid="contact-email">
             hello@nirmataholdings.com

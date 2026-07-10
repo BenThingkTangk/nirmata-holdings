@@ -62,6 +62,51 @@ test("portfolio filter narrows the grid", async ({ page }) => {
   await expect(page.getByTestId("venture-card-physiops")).toBeVisible();
 });
 
+test("core scroll film renders SSR narrative + thesis", async ({ page }) => {
+  await enter(page);
+  const film = page.getByTestId("scroll-film");
+  await expect(film).toHaveCount(1);
+  await expect(page.getByTestId("film-stage-thesis")).toContainText(
+    /intelligence is only meaningful/i
+  );
+});
+
+test("worker simulation requires human approval before outcome", async ({ page }) => {
+  await enter(page);
+  const sim = page.getByTestId("worker-sim");
+  await sim.scrollIntoViewIfNeeded();
+  await page.getByTestId("objective-support").click();
+  await page.getByTestId("sim-next").click(); // run policy gate
+  await expect(page.getByTestId("sim-log")).toContainText(/human must release|holds risky/i);
+  await page.getByTestId("sim-next").click(); // send to human
+  // Outcome must NOT be present until a human approves.
+  await expect(page.getByTestId("sim-outcome")).toHaveCount(0);
+  await page.getByTestId("approve-run").click();
+  await page.getByTestId("sim-outcome-next").click();
+  await expect(page.getByTestId("sim-outcome")).toBeVisible();
+  await expect(page.getByTestId("sim-log")).toContainText(/SAMPLE/);
+});
+
+test("decision chamber shows a covenant reading per choice", async ({ page }) => {
+  await enter(page);
+  const chamber = page.getByTestId("chamber");
+  await chamber.scrollIntoViewIfNeeded();
+  await page.getByTestId("choice-profit-trust-send").click();
+  await expect(page.getByTestId("chamber-verdict")).toContainText(/breach/i);
+  await page.getByTestId("choice-profit-trust-gate").click();
+  await expect(page.getByTestId("chamber-verdict")).toContainText(/aligned/i);
+  await expect(page.getByTestId("chamber-evaluation")).toContainText(/holds the stop/i);
+});
+
+test("portfolio world updates when a venture is selected", async ({ page }) => {
+  await enter(page);
+  const portfolio = page.getByTestId("portfolio");
+  await portfolio.scrollIntoViewIfNeeded();
+  await page.getByTestId("venture-card-physiops").click();
+  await expect(page.getByTestId("world-physiops")).toBeVisible();
+  await expect(page.getByTestId("world-physiops")).toContainText(/signal/i);
+});
+
 test("no horizontal overflow", async ({ page }) => {
   await enter(page);
   await noHorizontalOverflow(page);

@@ -9,11 +9,14 @@ import { useEffect, useRef, useState } from "react";
  */
 const CHAPTERS = [
   { id: "top", label: "Overture" },
+  { id: "scroll-film", label: "The Film" },
   { id: "manifesto", label: "Why" },
   { id: "failure-modes", label: "Failures" },
   { id: "portfolio", label: "Portfolio" },
   { id: "substrate", label: "NirmataOS" },
   { id: "atom", label: "ATOM" },
+  { id: "worker-sim", label: "Simulation" },
+  { id: "chamber", label: "Ethics" },
   { id: "incubator", label: "Passport" },
   { id: "covenant", label: "Covenant" },
   { id: "founders", label: "Founders" },

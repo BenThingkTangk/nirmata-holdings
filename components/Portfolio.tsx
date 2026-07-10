@@ -11,6 +11,7 @@ import {
 } from "@/lib/portfolio";
 import { ACCENT_HEX } from "./marks";
 import { Constellation } from "./Constellation";
+import { World } from "./World";
 import { Reveal } from "./Reveal";
 
 type Filter = "all" | DomainId;
@@ -48,7 +49,13 @@ export function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="section" data-testid="portfolio">
+    <section
+      id="portfolio"
+      className="section world"
+      data-testid="portfolio"
+      data-accent={active.accent}
+      style={{ ["--accent" as any]: ACCENT_HEX[active.accent] }}
+    >
       <div className="container container-wide">
         <div className="grid items-center gap-12 lg:grid-cols-[1fr_1fr]">
           <Reveal>
@@ -110,9 +117,10 @@ export function Portfolio() {
             ))}
           </div>
 
-          {/* Detail dossier */}
-          <div className="lg:sticky lg:top-24 lg:self-start">
+          {/* Detail dossier + living world */}
+          <div className="lg:sticky lg:top-24 lg:self-start space-y-6">
             <DetailPanel v={active} />
+            <World venture={active} />
           </div>
         </div>
       </div>
