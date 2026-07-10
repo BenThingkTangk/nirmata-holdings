@@ -1,0 +1,230 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: "Clash Display", system-ui, sans-serif;
+  --font-sans: "Satoshi", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+html,
+body {
+  background: #050609;
+  color: #e9edf4;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(0, 230, 211, 0.35);
+  color: #ffffff;
+}
+
+/* Utility helpers */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.015em;
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+.text-mute {
+  color: rgba(233, 237, 244, 0.62);
+}
+.text-faint {
+  color: rgba(233, 237, 244, 0.42);
+}
+.hairline {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #00e6d3;
+  border: 1px solid rgba(0, 230, 211, 0.25);
+  background: rgba(0, 230, 211, 0.05);
+  border-radius: 999px;
+}
+.chip-violet {
+  color: #c9a1ff;
+  border-color: rgba(185, 135, 255, 0.28);
+  background: rgba(185, 135, 255, 0.06);
+}
+.chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+}
+
+/* Glass card */
+.glass {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 13, 18, 0.85) 0%,
+    rgba(8, 10, 12, 0.7) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  transition: border-color 400ms ease, transform 400ms ease,
+    box-shadow 400ms ease;
+}
+.glass:hover {
+  border-color: rgba(0, 230, 211, 0.35);
+  box-shadow: 0 0 60px -30px rgba(0, 230, 211, 0.55);
+}
+.glass-violet:hover {
+  border-color: rgba(185, 135, 255, 0.35);
+  box-shadow: 0 0 60px -30px rgba(185, 135, 255, 0.5);
+}
+
+/* Section rule */
+.rule {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.14),
+    transparent
+  );
+}
+
+/* Radial ambient glow */
+.ambient-teal {
+  background: radial-gradient(
+    60% 60% at 50% 40%,
+    rgba(0, 230, 211, 0.14) 0%,
+    rgba(0, 230, 211, 0) 60%
+  );
+}
+.ambient-violet {
+  background: radial-gradient(
+    50% 50% at 60% 40%,
+    rgba(185, 135, 255, 0.12) 0%,
+    rgba(185, 135, 255, 0) 60%
+  );
+}
+
+/* Hero orbital rings */
+.orbit {
+  position: absolute;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 230, 211, 0.12);
+  animation: orbit-spin 60s linear infinite;
+}
+.orbit-2 {
+  border-color: rgba(185, 135, 255, 0.08);
+  animation-duration: 90s;
+  animation-direction: reverse;
+}
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Star field */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #ffffff;
+  border-radius: 999px;
+  animation: twinkle 4s infinite ease-in-out;
+}
+
+/* Marquee for portfolio strip */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 35s linear infinite;
+}
+
+/* CTA button */
+.cta-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.95rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  color: #041814;
+  background: linear-gradient(135deg, #00e6d3 0%, #00a89e 100%);
+  box-shadow: 0 0 0 0 rgba(0, 230, 211, 0.55);
+  transition: box-shadow 300ms ease, transform 300ms ease;
+}
+.cta-primary:hover {
+  box-shadow: 0 0 42px -6px rgba(0, 230, 211, 0.7);
+  transform: translateY(-1px);
+}
+.cta-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.95rem 1.4rem;
+  border-radius: 12px;
+  font-weight: 500;
+  color: #e9edf4;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 250ms ease, background 250ms ease;
+}
+.cta-ghost:hover {
+  border-color: rgba(0, 230, 211, 0.5);
+  background: rgba(0, 230, 211, 0.06);
+}
+
+/* Number */
+.metric {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, #ffffff 0%, #7fead9 120%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Delta glyph */
+.delta {
+  font-family: var(--font-display);
+  color: #00e6d3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
