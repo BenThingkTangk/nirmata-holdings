@@ -70,6 +70,29 @@ export function FailureModes() {
             </Reveal>
           ))}
         </div>
+
+        {/* Failure-mode → venture matrix */}
+        <Reveal delay={80} className="mt-12">
+          <div className="overflow-hidden rounded-2xl border border-white/[0.07]" data-testid="failure-matrix">
+            <div className="grid grid-cols-[auto_1fr_1.2fr] items-center gap-3 border-b border-white/[0.07] bg-white/[0.02] px-4 py-3 sm:px-6">
+              <span className="mlabel">#</span>
+              <span className="mlabel">Failure mode we refuse</span>
+              <span className="mlabel">Answered by</span>
+            </div>
+            {MODES.map((m, i) => (
+              <div
+                key={m.t}
+                className="grid grid-cols-[auto_1fr_1.2fr] items-center gap-3 border-b border-white/[0.05] px-4 py-3.5 last:border-b-0 transition-colors duration-150 hover:bg-white/[0.02] sm:px-6"
+              >
+                <span className="font-mono text-[11px] text-ink-faint">{String(i + 1).padStart(2, "0")}</span>
+                <span className="text-[13.5px] text-ink-text">{m.t}</span>
+                <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-primary">
+                  {m.a.replace(/^Answered by\s*/, "")}
+                </span>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );

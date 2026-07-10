@@ -15,10 +15,12 @@ export function Constellation({
   ventures,
   activeId,
   onSelect,
+  filter = "all",
 }: {
   ventures: Venture[];
   activeId: string | null;
   onSelect: (id: string) => void;
+  filter?: string;
 }) {
   const nodes = useMemo<Node[]>(() => {
     const inner = ventures.slice(0, 4);
@@ -48,17 +50,22 @@ export function Constellation({
       <svg viewBox="0 0 100 90" className="absolute inset-0 h-full w-full" aria-hidden>
         <ellipse cx="50" cy="45" rx="26" ry="21" fill="none" stroke="rgba(0,240,223,0.12)" strokeWidth="0.2" />
         <ellipse cx="50" cy="45" rx="42" ry="34" fill="none" stroke="rgba(192,132,252,0.1)" strokeWidth="0.2" />
-        {nodes.map((n) => (
-          <line
-            key={n.id}
-            x1="50"
-            y1="45"
-            x2={n.x}
-            y2={n.y * 0.9}
-            stroke={activeId === n.id ? ACCENT_HEX[n.accent] : "rgba(255,255,255,0.08)"}
-            strokeWidth={activeId === n.id ? 0.35 : 0.2}
-          />
-        ))}
+        {nodes.map((n) => {
+          const dim = filter !== "all" && n.domain !== filter;
+          return (
+            <line
+              key={n.id}
+              x1="50"
+              y1="45"
+              x2={n.x}
+              y2={n.y * 0.9}
+              stroke={activeId === n.id ? ACCENT_HEX[n.accent] : "rgba(255,255,255,0.08)"}
+              strokeWidth={activeId === n.id ? 0.35 : 0.2}
+              opacity={dim ? 0.25 : 1}
+              style={{ transition: "opacity 200ms var(--ease)" }}
+            />
+          );
+        })}
       </svg>
 
       {/* core */}
@@ -82,6 +89,7 @@ export function Constellation({
       {/* nodes */}
       {nodes.map((n) => {
         const active = activeId === n.id;
+        const dim = filter !== "all" && n.domain !== filter;
         const hex = ACCENT_HEX[n.accent];
         return (
           <button
@@ -91,7 +99,7 @@ export function Constellation({
             aria-label={`${n.name} — view details`}
             aria-pressed={active}
             className="group absolute -translate-x-1/2 -translate-y-1/2 rounded-full outline-none"
-            style={{ left: `${n.x}%`, top: `${n.y}%` }}
+            style={{ left: `${n.x}%`, top: `${n.y}%`, opacity: dim ? 0.35 : 1, transition: "opacity 200ms var(--ease)" }}
             data-testid={`constellation-node-${n.id}`}
           >
             <span className="flex flex-col items-center gap-1.5">

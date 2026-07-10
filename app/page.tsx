@@ -1,5 +1,6 @@
 import { Nav } from "@/components/Nav";
 import { Boot } from "@/components/Boot";
+import { Chapters } from "@/components/Chapters";
 import { Hero } from "@/components/Hero";
 import { Manifesto } from "@/components/Manifesto";
 import { FailureModes } from "@/components/FailureModes";
@@ -18,6 +19,7 @@ export default function Home() {
     <>
       <Boot />
       <Nav />
+      <Chapters />
       <main id="main" className="relative overflow-hidden">
         <Hero />
         <Manifesto />

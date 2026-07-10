@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { OrbitalCanvas } from "./OrbitalCanvas";
 
 const STATS = [
@@ -12,6 +12,16 @@ const STATS = [
 
 export function Hero() {
   const artRef = useRef<HTMLDivElement | null>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const artY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 120]);
+  const ringsY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 60]);
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -40]);
+  const fade = useTransform(scrollYProgress, [0, 0.8], [1, reduce ? 1 : 0.15]);
 
   useEffect(() => {
     const el = artRef.current;
@@ -30,6 +40,7 @@ export function Hero() {
 
   return (
     <section
+      ref={sectionRef}
       id="top"
       className="relative flex min-h-[100svh] items-center overflow-hidden pt-20"
       data-testid="hero"
@@ -37,13 +48,17 @@ export function Hero() {
       <div className="absolute inset-0 glow-teal" aria-hidden />
       <div className="absolute inset-0 glow-iris opacity-70" aria-hidden />
       <OrbitalCanvas className="absolute inset-0 h-full w-full opacity-70" />
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center" aria-hidden>
+      <motion.div
+        style={{ y: ringsY }}
+        className="pointer-events-none absolute inset-0 flex items-center justify-center"
+        aria-hidden
+      >
         <div className="orbit-ring" style={{ width: "min(128vh,1200px)", height: "min(128vh,1200px)" }} />
         <div className="orbit-ring orbit-ring--iris" style={{ width: "min(88vh,860px)", height: "min(88vh,860px)" }} />
-      </div>
+      </motion.div>
 
       <div className="container container-wide relative z-10 grid items-center gap-12 py-16 lg:grid-cols-[1.1fr_0.9fr]">
-        <div>
+        <motion.div style={{ y: copyY, opacity: fade }}>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -113,13 +128,14 @@ export function Hero() {
               </div>
             ))}
           </motion.dl>
-        </div>
+        </motion.div>
 
         {/* Masterbrand art */}
         <motion.div
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          style={{ y: artY }}
           className="relative mx-auto hidden aspect-square w-full max-w-md items-center justify-center lg:flex"
         >
           <div ref={artRef} className="relative transition-transform duration-300 ease-out">

@@ -494,6 +494,149 @@ a {
   );
 }
 
+/* ---------- Scroll progress + chapter rail ---------- */
+.scroll-progress {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 60;
+  height: 2px;
+  width: 100%;
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--primary), var(--iris));
+  box-shadow: 0 0 12px var(--primary-glow-strong);
+}
+
+.chapter-rail {
+  position: fixed;
+  right: clamp(0.9rem, 2vw, 1.75rem);
+  top: 50%;
+  z-index: 55;
+  transform: translateY(-50%);
+  display: none;
+}
+@media (min-width: 1024px) {
+  .chapter-rail {
+    display: flex;
+  }
+}
+.chapter-dot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  padding: 0.35rem 0;
+  color: var(--text-faint);
+  transition: color var(--t);
+}
+.chapter-dot > .cd-mark {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  transition: transform var(--t), background var(--t), box-shadow var(--t);
+}
+.chapter-dot > .cd-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity var(--t), transform var(--t);
+  white-space: nowrap;
+}
+.chapter-dot:hover,
+.chapter-dot:focus-visible {
+  color: var(--text-muted);
+  outline: none;
+}
+.chapter-dot:hover > .cd-label,
+.chapter-dot:focus-visible > .cd-label {
+  opacity: 1;
+  transform: none;
+}
+.chapter-dot[aria-current="true"] {
+  color: var(--primary);
+}
+.chapter-dot[aria-current="true"] > .cd-mark {
+  background: var(--primary);
+  box-shadow: 0 0 10px var(--primary);
+  transform: scale(1.35);
+}
+.chapter-dot[aria-current="true"] > .cd-label {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Living flow diagram (NirmataOS) ---------- */
+.flow-dash {
+  stroke-dasharray: 3 5;
+  animation: flow-move 1.4s linear infinite;
+}
+@keyframes flow-move {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+.flow-pulse {
+  offset-rotate: 0deg;
+  animation: flow-travel 3.4s var(--ease) infinite;
+}
+@keyframes flow-travel {
+  0% {
+    opacity: 0;
+    offset-distance: 0%;
+  }
+  8% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    offset-distance: 100%;
+  }
+}
+
+/* ---------- Seal ---------- */
+.seal-ring {
+  animation: spin-cw 40s linear infinite;
+}
+
+/* ---------- Kinetic passport type ---------- */
+.stamp {
+  animation: stamp-in 620ms var(--ease) both;
+}
+@keyframes stamp-in {
+  0% {
+    opacity: 0;
+    transform: rotate(-18deg) scale(1.6);
+  }
+  70% {
+    opacity: 1;
+    transform: rotate(-11deg) scale(0.94);
+  }
+  100% {
+    transform: rotate(-11deg) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress {
+    display: none;
+  }
+  .flow-dash,
+  .flow-pulse,
+  .seal-ring,
+  .stamp {
+    animation: none !important;
+  }
+}
+
 /* Mono label */
 .mlabel {
   font-family: var(--font-mono);

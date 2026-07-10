@@ -92,6 +92,75 @@ export function NirmataOsMark({
   );
 }
 
+/**
+ * Ethical AI Covenant seal — a struck emblem with a rotating text ring around
+ * the NirmataOS motif. Purely decorative weight for the signatory block; the
+ * text ring is aria-hidden and the parent supplies the accessible label.
+ */
+export function CovenantSeal({
+  size = 132,
+  className = "",
+}: {
+  size?: number;
+  className?: string;
+}) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 160 160"
+      fill="none"
+      role="img"
+      aria-label="The Ethical AI Covenant — sealed"
+      className={className}
+    >
+      <defs>
+        <linearGradient id="seal-g" x1="26" y1="26" x2="134" y2="134" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#00f0df" />
+          <stop offset="1" stopColor="#c084fc" />
+        </linearGradient>
+        <path
+          id="seal-ring"
+          d="M80 80 m-58 0 a58 58 0 1 1 116 0 a58 58 0 1 1 -116 0"
+        />
+      </defs>
+      <circle cx="80" cy="80" r="70" stroke="url(#seal-g)" strokeWidth="1" opacity="0.4" />
+      <circle cx="80" cy="80" r="64" stroke="url(#seal-g)" strokeWidth="0.6" opacity="0.25" />
+      <circle cx="80" cy="80" r="41" stroke="url(#seal-g)" strokeWidth="0.8" opacity="0.5" />
+      {/* rotating engraved text ring */}
+      <g className="seal-ring" aria-hidden style={{ transformOrigin: "80px 80px" }}>
+        <text
+          fill="#9aa8ad"
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "8.4px",
+            fontWeight: 700,
+            letterSpacing: "5.2px",
+            textTransform: "uppercase",
+          }}
+        >
+          <textPath href="#seal-ring" startOffset="0">
+            · THE ETHICAL AI COVENANT · SIX TENETS · NO EXCEPTIONS
+          </textPath>
+        </text>
+      </g>
+      {/* central NirmataOS motif */}
+      <g transform="translate(48 48) scale(0.533)">
+        <circle cx="60" cy="60" r="34" stroke="url(#seal-g)" strokeWidth="1.4" opacity="0.6" />
+        <ellipse cx="60" cy="60" rx="14" ry="34" stroke="url(#seal-g)" strokeWidth="1.1" opacity="0.4" />
+        <ellipse cx="60" cy="60" rx="34" ry="14" stroke="url(#seal-g)" strokeWidth="1.1" opacity="0.4" />
+        <path
+          d="M40 60 C40 47 53 47 60 60 C67 73 80 73 80 60 C80 47 67 47 60 60 C53 73 40 73 40 60 Z"
+          stroke="url(#seal-g)"
+          strokeWidth="3.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+    </svg>
+  );
+}
+
 /** Nirmata Holdings masterbrand lockup — sculptural winged-N art + wordmark. */
 export function NirmataLockup({
   markSize = 34,

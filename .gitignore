@@ -7,3 +7,8 @@ out
 .vercel
 
 tsconfig.tsbuildinfo
+
+# Playwright
+test-results
+playwright-report
+.playwright

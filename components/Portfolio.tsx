@@ -71,7 +71,7 @@ export function Portfolio() {
           </Reveal>
 
           <Reveal delay={120}>
-            <Constellation ventures={VENTURES} activeId={activeId} onSelect={select} />
+            <Constellation ventures={VENTURES} activeId={activeId} onSelect={select} filter={filter} />
           </Reveal>
         </div>
 

@@ -1,5 +1,5 @@
-import { NirmataOsMark } from "./marks";
 import { Reveal } from "./Reveal";
+import { NirmataFlow } from "./NirmataFlow";
 
 const LAYERS = [
   {
@@ -29,12 +29,9 @@ export function Substrate() {
       <div className="glow-teal absolute inset-0 opacity-50" aria-hidden />
       <div className="container relative">
         <div className="grid items-center gap-14 lg:grid-cols-[0.85fr_1.15fr]">
-          <Reveal className="order-2 lg:order-1">
-            <div className="relative mx-auto flex aspect-square w-full max-w-sm items-center justify-center">
-              <span className="orbit-ring" style={{ width: "78%", height: "78%" }} />
-              <span className="orbit-ring orbit-ring--iris" style={{ width: "100%", height: "100%" }} />
-              <NirmataOsMark size={220} className="floaty relative drop-shadow-[0_0_40px_rgba(0,240,223,0.25)]" />
-            </div>
+          <Reveal className="order-2 mx-auto w-full max-w-md lg:order-1">
+            <div className="mb-4 mlabel">The loop · Human → Outcome</div>
+            <NirmataFlow />
           </Reveal>
 
           <div className="order-1 lg:order-2">

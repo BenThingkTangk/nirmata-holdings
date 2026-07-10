@@ -1,4 +1,5 @@
 import { Reveal } from "./Reveal";
+import { CovenantSeal } from "./marks";
 
 const TENETS = [
   {
@@ -68,7 +69,10 @@ export function Covenant() {
 
         <Reveal delay={120} className="mx-auto mt-14 max-w-2xl">
           <div className="card p-8 text-center md:p-10">
-            <div className="mlabel">Signed</div>
+            <div className="flex justify-center">
+              <CovenantSeal size={132} className="drop-shadow-[0_0_30px_rgba(0,240,223,0.22)]" />
+            </div>
+            <div className="mt-6 mlabel">Signed &amp; sealed</div>
             <div className="mt-6 flex flex-col items-center justify-center gap-6 sm:flex-row sm:gap-10">
               <Signatory name="Ben O’Leary" role="Co-Founder · Chief Quantum Officer" />
               <div className="hidden h-10 w-px bg-white/10 sm:block" />
