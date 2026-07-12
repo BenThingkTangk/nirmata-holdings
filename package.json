@@ -2,12 +2,21 @@
   "name": "nirmata-holdings",
   "version": "0.1.0",
   "private": true,
+  "designSystem": {
+    "name": "ATOM + Nirmata Holdings Brand & Design Standard",
+    "release": "2.2.2",
+    "tokensSchema": "1.0.0",
+    "sourceCommit": "4dc80b9"
+  },
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start -p 3000",
     "lint": "next lint",
-    "test:e2e": "playwright test"
+    "typecheck": "tsc --noEmit",
+    "test:tokens": "node scripts/check-tokens.mjs",
+    "test:e2e": "playwright test",
+    "verify": "npm run typecheck && npm run lint && npm run test:tokens && npm run build"
   },
   "dependencies": {
     "framer-motion": "^11.11.9",
@@ -21,6 +30,8 @@
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.15",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
     "typescript": "^5.6.3"

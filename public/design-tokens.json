@@ -1,0 +1,118 @@
+{
+  "$schema": "https://design-tokens.org/format",
+  "meta": {
+    "name": "ATOM + Nirmata Holdings Design Tokens",
+    "version": "1.0.0",
+    "release": "2.2.2",
+    "sourceCommit": "4dc80b9",
+    "note": "Mirror of lib/design-system.ts. NO GRID BACKGROUND. One accent per surface."
+  },
+  "color": {
+    "tealPrimary": "#00f0df",
+    "tealStrong": "#00c9bb",
+    "tealDeep": "#00766e",
+    "iris": "#c084fc",
+    "coral": "#ff7b6b",
+    "gold": "#f5c842",
+    "azure": "#74c0fc",
+    "success": "#3fd18b",
+    "warning": "#f5b23a",
+    "error": "#f0596b",
+    "info": "#4cb7f0",
+    "ink": {
+      "0": "#050607",
+      "1": "#0a0c0e",
+      "2": "#0f1214",
+      "3": "#151a1d",
+      "4": "#1c2226",
+      "5": "#252d32",
+      "6": "#323b41"
+    },
+    "paper": {
+      "0": "#ffffff",
+      "1": "#fbfcfc",
+      "2": "#f4f6f6",
+      "3": "#eceff0",
+      "4": "#e1e6e7",
+      "5": "#cfd6d8",
+      "6": "#b4bdc0"
+    }
+  },
+  "space": {
+    "0": "0",
+    "px": "1px",
+    "1": "4px",
+    "2": "8px",
+    "3": "12px",
+    "4": "16px",
+    "5": "20px",
+    "6": "24px",
+    "8": "32px",
+    "10": "40px",
+    "12": "48px",
+    "16": "64px",
+    "20": "80px",
+    "24": "96px",
+    "32": "128px"
+  },
+  "radius": {
+    "xs": "4px",
+    "sm": "6px",
+    "md": "10px",
+    "lg": "14px",
+    "xl": "20px",
+    "2xl": "28px",
+    "pill": "999px"
+  },
+  "font": {
+    "display": "Cabinet Grotesk",
+    "body": "Satoshi",
+    "mono": "JetBrains Mono",
+    "weight": { "regular": 400, "medium": 500, "bold": 700, "black": 900 }
+  },
+  "motion": {
+    "durationBaseMs": 180,
+    "easingAtom": "cubic-bezier(0.16, 1, 0.3, 1)",
+    "motifs": ["orbit", "scan", "breathe"]
+  },
+  "breakpoint": {
+    "xs": "320px",
+    "sm": "480px",
+    "md": "768px",
+    "lg": "1024px",
+    "xl": "1280px",
+    "2xl": "1536px"
+  },
+  "aiState": {
+    "idle": "#7c898c",
+    "thinking": "#74c0fc",
+    "streaming": "#00f0df",
+    "awaitingApproval": "#f5c842",
+    "executing": "#c084fc",
+    "complete": "#3fd18b",
+    "error": "#f0596b",
+    "offline": "#5c686b"
+  },
+  "dataViz": [
+    "#00f0df",
+    "#c084fc",
+    "#f5c842",
+    "#74c0fc",
+    "#ff7b6b",
+    "#3fd18b",
+    "#a3afb2",
+    "#f0596b"
+  ],
+  "productAccents": {
+    "atom-core": "#00f0df",
+    "nirmata-holdings": "#74c0fc",
+    "nirmata-os": "#00f0df",
+    "human-os": "#ff7b6b",
+    "evidence-os": "#f5c842",
+    "sales-os": "#c084fc",
+    "agri-os": "#3fd18b",
+    "console": "#74c0fc",
+    "physio-ps": "#4cb7f0",
+    "thingk-tangk": "#f5c842"
+  }
+}

@@ -4,15 +4,30 @@
 
 /* =========================================================================
    Nirmata Holdings — design system
-   Canonical ATOM tokens (audited from atom-v1-atom-only-preview.vercel.app):
-   primary teal #00f0df, near-black surface stack, one-mark/five-accent,
-   180ms cubic-bezier(0.16,1,0.3,1), Cabinet Grotesk / Satoshi / JetBrains Mono.
+   Canonical ATOM + Nirmata Holdings Brand & Design Standard.
+   Release v2.2.2 · token schema 1.0.0 · source commit 4dc80b9.
+   Single source of truth: lib/design-system.ts (mirrored to
+   public/design-tokens.json). Kept in parity by scripts/check-tokens.mjs.
+
+   Non-negotiable: NO grid background. Dark surfaces are layered near-black,
+   never flat pure black. One accent per surface. Glows encode active/live/
+   agent state — never decoration.
+   primary teal #00f0df · 180ms cubic-bezier(0.16,1,0.3,1) ·
+   Cabinet Grotesk / Satoshi / JetBrains Mono.
    ========================================================================= */
 
 :root {
-  /* Accents — the five ATOM accents */
+  /* Design-system provenance (machine-readable in lib/design-system.ts) */
+  --ds-version: "2.2.2";
+
+  /* ATOM teal ramp */
+  --teal-primary: #00f0df;
+  --teal-strong: #00c9bb;
+  --teal-deep: #00766e;
+
+  /* Accents — ATOM primary + four product channels */
   --primary: #00f0df;
-  --primary-dim: #00b8ae;
+  --primary-dim: #00c9bb; /* canonical tealStrong */
   --primary-glow: rgba(0, 240, 223, 0.16);
   --primary-glow-strong: rgba(0, 240, 223, 0.34);
   --iris: #c084fc;
@@ -25,15 +40,49 @@
   --azure: #74c0fc;
   --azure-glow: rgba(116, 192, 252, 0.14);
 
-  /* Near-black surface stack */
-  --bg: #050607;
-  --surface: #0d1012;
-  --surface-2: #12171b;
-  --surface-3: #182026;
-  --surface-4: #202a31;
+  /* Semantic status */
+  --success: #3fd18b;
+  --warning: #f5b23a;
+  --error: #f0596b;
+  --info: #4cb7f0;
+
+  /* Canonical near-black ink surface stack (deep-space, never flat black) */
+  --ink-0: #050607;
+  --ink-1: #0a0c0e;
+  --ink-2: #0f1214;
+  --ink-3: #151a1d;
+  --ink-4: #1c2226;
+  --ink-5: #252d32;
+  --ink-6: #323b41;
+
+  /* Warm-neutral paper stack (reserved for light-mode surfaces) */
+  --paper-0: #ffffff;
+  --paper-1: #fbfcfc;
+  --paper-2: #f4f6f6;
+  --paper-3: #eceff0;
+  --paper-4: #e1e6e7;
+  --paper-5: #cfd6d8;
+  --paper-6: #b4bdc0;
+
+  /* Semantic surface stack — mapped onto the canonical ink scale */
+  --bg: var(--ink-0);
+  --surface: var(--ink-2);
+  --surface-2: var(--ink-3);
+  --surface-3: var(--ink-4);
+  --surface-4: var(--ink-5);
   --border: rgba(255, 255, 255, 0.08);
   --border-bright: rgba(255, 255, 255, 0.14);
   --divider: rgba(255, 255, 255, 0.05);
+
+  /* AI-state tokens — encode agent/tool/response state honestly */
+  --ai-idle: #7c898c;
+  --ai-thinking: #74c0fc;
+  --ai-streaming: #00f0df;
+  --ai-awaiting-approval: #f5c842;
+  --ai-executing: #c084fc;
+  --ai-complete: #3fd18b;
+  --ai-error: #f0596b;
+  --ai-offline: #5c686b;
 
   /* Text */
   --text: #f4fbfb;
@@ -46,9 +95,44 @@
   --font-body: "Satoshi", "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
+  /* 4px spacing scale */
+  --space-0: 0;
+  --space-px: 1px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* Radius scale */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+  --radius-pill: 999px;
+
+  /* Breakpoints (reference; media queries use literals) */
+  --bp-xs: 320px;
+  --bp-sm: 480px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+  --bp-2xl: 1536px;
+
   /* Signature easing + reveal */
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --t: 180ms var(--ease);
+  --duration-base: 180ms;
+  --t: var(--duration-base) var(--ease);
 
   --content: 1180px;
   --content-wide: 1400px;

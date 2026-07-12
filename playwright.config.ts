@@ -1,5 +1,10 @@
 import { defineConfig, devices } from "@playwright/test";
 
+// Port is configurable (default 3000) so the suite can run even when another
+// service already occupies the default port. CI/local defaults are unchanged.
+const PORT = Number(process.env.PORT ?? 3000);
+const BASE_URL = process.env.BASE_URL ?? `http://127.0.0.1:${PORT}`;
+
 export default defineConfig({
   testDir: "./tests",
   fullyParallel: false,
@@ -7,7 +12,7 @@ export default defineConfig({
   reporter: [["list"]],
   timeout: 45_000,
   use: {
-    baseURL: "http://127.0.0.1:3000",
+    baseURL: BASE_URL,
     trace: "off",
     screenshot: "off",
   },
@@ -17,8 +22,8 @@ export default defineConfig({
     { name: "mobile-375", use: { ...devices["Desktop Chrome"], viewport: { width: 375, height: 812 }, isMobile: true, hasTouch: true } },
   ],
   webServer: {
-    command: "npm run start",
-    url: "http://127.0.0.1:3000",
+    command: `next start -p ${PORT}`,
+    url: BASE_URL,
     reuseExistingServer: true,
     timeout: 60_000,
   },
