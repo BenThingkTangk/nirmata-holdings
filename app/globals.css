@@ -212,6 +212,8 @@ a {
 .section {
   position: relative;
   padding-block: clamp(4.5rem, 8vw, 8rem);
+  /* Keep anchored navigation clear of the fixed 64px header. */
+  scroll-margin-top: 5.5rem;
 }
 .rule {
   height: 1px;

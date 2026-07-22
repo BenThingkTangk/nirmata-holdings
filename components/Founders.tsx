@@ -143,11 +143,18 @@ export function Founders() {
           })}
         </div>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
+        {/* Mobile: 1-col stack. Tablet/intermediate (md–lg): a deliberate
+            two-plus-one — Ben + Joel side by side, Josh centered below at a
+            single-column width (never edge-to-edge). Wide (xl): balanced triptych. */}
+        <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {FOUNDERS.map((f, i) => {
             const hex = ACCENT_HEX[f.accent];
+            const isLast = i === FOUNDERS.length - 1;
+            const spanClass = isLast
+              ? "md:col-span-2 md:mx-auto md:w-[calc(50%-0.75rem)] xl:col-span-1 xl:mx-0 xl:w-full"
+              : "";
             return (
-              <Reveal key={f.name} delay={i * 100}>
+              <Reveal key={f.name} delay={i * 100} className={spanClass}>
                 <article
                   className={`card card--glow-${f.accent} h-full p-8 md:p-10`}
                   data-testid={`founder-${f.initial.toLowerCase()}`}

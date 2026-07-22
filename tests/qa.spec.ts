@@ -128,6 +128,25 @@ test("founders section shows all three co-founders with roles", async ({ page })
   await expect(covenant).toContainText("Josh Mellott");
 });
 
+test("founders use a two-plus-one layout at 768 (no cramped 3-col row)", async ({ page }) => {
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await enter(page);
+  await page.getByTestId("founders").scrollIntoViewIfNeeded();
+
+  const b = await page.getByTestId("founder-b").boundingBox();
+  const j = await page.getByTestId("founder-j").boundingBox();
+  const jm = await page.getByTestId("founder-jm").boundingBox();
+  expect(b && j && jm, "founder cards measured").toBeTruthy();
+
+  // Ben and Joel share the top row.
+  expect(Math.abs(b!.y - j!.y), "Ben and Joel on same row").toBeLessThan(8);
+  // Josh sits BELOW that row — not a third cramped column beside them.
+  expect(jm!.y, "Josh below the top row").toBeGreaterThan(b!.y + b!.height - 8);
+  // Josh card is a single-column width, comparable to Ben — not edge-to-edge.
+  expect(Math.abs(jm!.width - b!.width), "Josh width ~= one column").toBeLessThan(24);
+  expect(jm!.width, "Josh not spanning both columns").toBeLessThan((b!.width + j!.width) * 0.75);
+});
+
 function overlaps(
   a: { x: number; y: number; width: number; height: number },
   b: { x: number; y: number; width: number; height: number }
