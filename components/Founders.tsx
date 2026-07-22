@@ -6,13 +6,25 @@ import { NirmataOsMark } from "./marks";
 
 type Founder = {
   initial: string;
-  accent: "teal" | "iris";
+  accent: "teal" | "iris" | "gold";
   name: string;
   role: string;
   focus: string;
   discipline: string;
   bio: string;
   work: string[];
+};
+
+const ACCENT_HEX: Record<Founder["accent"], string> = {
+  teal: "#00f0df",
+  iris: "#c084fc",
+  gold: "#f5c842",
+};
+
+const BADGE_BG: Record<Founder["accent"], string> = {
+  teal: "linear-gradient(135deg,#00f0df,#00b8ae)",
+  iris: "linear-gradient(135deg,#c084fc,#9333ea)",
+  gold: "linear-gradient(135deg,#f5c842,#c99a1e)",
 };
 
 const FOUNDERS: Founder[] = [
@@ -42,6 +54,20 @@ const FOUNDERS: Founder[] = [
       "Philosophical foundation of ΔTOM",
       "Agritech and regenerative-land research",
       "Cross-domain product innovation",
+    ],
+  },
+  {
+    initial: "JM",
+    accent: "gold",
+    name: "Josh Mellott",
+    role: "Co-Founder & Chief Revenue Officer",
+    focus: "GTM · Enterprise Sales · Revenue Acceleration",
+    discipline: "The revenue force",
+    bio: "The von Clausewitz of startup sales and growth. Josh’s genius is turning complex anything — physics, AI infrastructure, agentic systems, regulated workflows — into simple, understandable, sellable, high-adoption stories that close. He architects the GTM motion that takes Nirmata from early traction to category-defining inevitability. Where most CROs sell features, Josh sells worldviews. Where most pipelines stall, his accelerate. Mic. Drop.",
+    work: [
+      "Go-to-market architecture",
+      "Enterprise sales motion",
+      "Revenue acceleration",
     ],
   },
 ];
@@ -88,7 +114,8 @@ export function Founders() {
             <span className="dot text-iris" /> Co-founders
           </span>
           <h2 className="h-section mt-7">
-            The architect and the <span className="grad-tealiris">philosopher</span>.
+            The architect, the philosopher, and the{" "}
+            <span className="grad-tealiris">revenue force</span>.
           </h2>
         </Reveal>
 
@@ -116,10 +143,9 @@ export function Founders() {
           })}
         </div>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
           {FOUNDERS.map((f, i) => {
-            const isTeal = f.accent === "teal";
-            const hex = isTeal ? "#00f0df" : "#c084fc";
+            const hex = ACCENT_HEX[f.accent];
             return (
               <Reveal key={f.name} delay={i * 100}>
                 <article
@@ -133,9 +159,7 @@ export function Founders() {
                     <div
                       className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full font-display text-2xl"
                       style={{
-                        background: isTeal
-                          ? "linear-gradient(135deg,#00f0df,#00b8ae)"
-                          : "linear-gradient(135deg,#c084fc,#9333ea)",
+                        background: BADGE_BG[f.accent],
                         color: "#041012",
                       }}
                       aria-hidden
@@ -207,11 +231,11 @@ export function Founders() {
                 <NirmataOsMark size={104} />
               </div>
               <p className="mt-6 font-display text-2xl text-ink-text md:text-3xl">
-                Two disciplines. One covenant.
+                Three disciplines. One covenant.
               </p>
               <p className="lead mx-auto mt-4">
-                Every venture&apos;s signal converges here — architecture and philosophy holding
-                each other honest.
+                Every venture&apos;s signal converges here — architecture, philosophy, and
+                go-to-market holding each other honest.
               </p>
               <p className="mt-6 font-display text-xl" style={{ color: "var(--iris)" }}>
                 Brilliance has no passport.

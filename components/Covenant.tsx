@@ -77,6 +77,8 @@ export function Covenant() {
               <Signatory name="Ben O’Leary" role="Co-Founder · Chief Quantum Officer" />
               <div className="hidden h-10 w-px bg-white/10 sm:block" />
               <Signatory name="Joel Bedard" role="Co-Founder · Chief Philosophy & Innovation Officer" />
+              <div className="hidden h-10 w-px bg-white/10 sm:block" />
+              <Signatory name="Josh Mellott" role="Co-Founder & Chief Revenue Officer" />
             </div>
           </div>
         </Reveal>

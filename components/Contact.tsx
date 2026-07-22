@@ -26,7 +26,7 @@ const PROOF = [
 const ROUTES = [
   { label: "Explore the system", note: "The Nirmata core, end to end", href: "#scroll-film" },
   { label: "Run the simulation", note: "See a human-governed Worker run", href: "#worker-sim" },
-  { label: "Talk to a founder", note: "Architect & philosopher", href: "mailto:hello@nirmataholdings.com?subject=Talk%20to%20a%20founder" },
+  { label: "Talk to a founder", note: "Architect, philosopher & revenue force", href: "mailto:hello@nirmataholdings.com?subject=Talk%20to%20a%20founder" },
 ];
 
 export function Contact() {

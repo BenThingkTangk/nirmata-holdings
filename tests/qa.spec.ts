@@ -107,6 +107,27 @@ test("portfolio world updates when a venture is selected", async ({ page }) => {
   await expect(page.getByTestId("world-physiops")).toContainText(/signal/i);
 });
 
+test("founders section shows all three co-founders with roles", async ({ page }) => {
+  await enter(page);
+  const founders = page.getByTestId("founders");
+  await founders.scrollIntoViewIfNeeded();
+  await expect(founders).toBeVisible();
+
+  await expect(page.getByTestId("founder-b")).toContainText(/O.Leary/);
+  await expect(page.getByTestId("founder-j")).toContainText("Joel Bedard");
+
+  const josh = page.getByTestId("founder-jm");
+  await expect(josh).toBeVisible();
+  await expect(josh).toContainText("Josh Mellott");
+  await expect(josh).toContainText("Co-Founder & Chief Revenue Officer");
+  await expect(josh).toContainText(/revenue force/i);
+
+  // Josh is also a covenant signatory.
+  const covenant = page.getByTestId("covenant");
+  await covenant.scrollIntoViewIfNeeded();
+  await expect(covenant).toContainText("Josh Mellott");
+});
+
 function overlaps(
   a: { x: number; y: number; width: number; height: number },
   b: { x: number; y: number; width: number; height: number }
